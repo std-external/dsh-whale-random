@@ -1,0 +1,4 @@
+# Random per-load whale animation for the Web chat running status.
+- insert:
+    - id: whale-random
+      name: 'dsh-whale-random'
