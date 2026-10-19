@@ -56,6 +56,16 @@ dsh plugin --profile web remove dsh-whale-random
 - The plugin only replaces the *look*; it cannot tell thinking from tool calls, because that row carries no
   such state (the stock indicator does not distinguish them either).
 
+## Verification (Chromium, Playwright)
+
+`test/check.mjs` loads the real chat stylesheet and running-row markup, then installs the bundle's stylesheet per variant:
+
+- `CSS.supports('mask-mode', 'alpha')` → `true`, so the guarded block applies exactly like the stock one;
+- the decorated span reports `mask-size: 1200% 100%` (12-frame sprites) / `1500% 100%` (15-frame) and
+  `mask-position` stepping `0% → 9.09% → 27.27% → 45.45%` over time — frames advance;
+- calling the shipped `apply({})` installs exactly one `<style data-plugin="dsh-whale-random">` tag and picks a
+  variant at random (`turn` in the recorded run).
+
 ## Development
 
 ```bash
